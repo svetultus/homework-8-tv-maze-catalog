@@ -11,11 +11,8 @@ import { search } from '../api.js';
 
 export const searchMiddleware = store => next => action => {
   if (action.type === changeSearchString.toString()) {
-    console.log('запрос к серверу');
-    console.log(action.payload);
     search(action.payload)
       .then(result => {
-        console.log(result);
         store.dispatch(searchSuccess(result));
       })
       .catch(e => store.dispatch(searchError(e)));

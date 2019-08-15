@@ -18,9 +18,16 @@ const shows = handleActions(
   []
 );
 
+const error = handleActions(
+  {
+    [searchError]: (state, action) => action.payload
+  },
+  []
+);
+
 export default combineReducers({
   searchString,
-  shows
+  shows,
   // isLoading,
-  // error,
+  error
 });

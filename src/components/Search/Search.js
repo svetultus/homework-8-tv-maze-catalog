@@ -60,7 +60,7 @@ function ShowPreview(props) {
   return (
     <div className="t-preview ShowPreview_container">
       <div>
-        <a className="t-link" href={`"/shows/"${id}`}>
+        <a className="t-link" href={`/shows/${id}`}>
           {name}
         </a>
         <img src={image} alt={name} />
