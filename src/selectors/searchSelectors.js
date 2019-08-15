@@ -1,16 +1,16 @@
 import { createSelector } from 'reselect';
 
-// export const getSearchString = state => state.searchString;
-export const getSearchString = createSelector(
+const getSearchString = createSelector(
   state => state.search.searchString,
   searchString => {
     return searchString;
   }
 );
 
-export const getShows = createSelector(
+const getShows = createSelector(
   state => state.search.shows,
   shows => {
+    console.log(shows);
     return shows.map(({ id, name, image, summary }) => ({
       id,
       name,
@@ -19,5 +19,14 @@ export const getShows = createSelector(
     }));
   }
 );
+const getSearchError = createSelector(
+  state => state.search.error,
+  error => error
+);
 
-// export default { getSearchString, getShows };
+const getIsLoading = createSelector(
+  state => state.search.isLoading,
+  isLoading => isLoading
+);
+
+export { getSearchString, getShows, getSearchError, getIsLoading };

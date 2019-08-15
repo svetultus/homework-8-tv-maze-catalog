@@ -5,7 +5,12 @@ import {
   showRequestSuccess,
   showRequestError
 } from '../../actions';
-import { getShow } from '../../selectors';
+import {
+  getShow,
+  getShowInfo,
+  getShowError,
+  getIsLoading
+} from '../../selectors';
 // Реализуйте страницу шоу.
 
 // Используйте метод connect и mapStateToProps, mapDispatchToProps,
@@ -15,9 +20,10 @@ import { getShow } from '../../selectors';
 // В методе componentDidMount вам нужно будет диспатчить showRequest action
 
 const mapStateToProps = state => ({
-  showId: getShow,
-  showInfo: {},
-  error: null
+  showId: getShow(state),
+  showInfo: getShowInfo(state),
+  error: getShowError(state),
+  isLoading: getIsLoading(state)
 });
 const mapDispatchToProps = {
   showRequest,
@@ -26,38 +32,37 @@ const mapDispatchToProps = {
 };
 
 class ShowPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.id = this.props.match.params.id;
-  }
-
   componentDidMount() {
+    this.id = this.props.match.params.id;
     this.props.showRequest(this.id);
   }
 
   render() {
+    const { showInfo, error, isLoading } = this.props;
+
+    if (error) return <p>Произошла сетевая ошибка</p>;
+    if (isLoading) return <div>Загрузка</div>;
+    if (!this.props.showInfo) return null;
+
+    const { name, image, summary, cast } = this.props.showInfo;
+
     return (
-      <div>
-        <div>Show {this.id}</div>
-        <p>C³</p>
-        <img
-          src="http://static.tvmaze.com/uploads/images/medium_portrait/78/195703.jpg"
-          alt="C³"
-        />
+      showInfo && (
         <div>
-          <p>
-            From the light novel series written by Minase Hazuki, comes a story
-            of love, action, and comedy. Yachi Haruaki is a high school boy who
-            is naturally resistant to curses. After his father sends him a
-            mysterious black cube, Haruaki awakes to find a nude girl named Fear
-            standing in his kitchen. She's the human form of the cursed black
-            cube – and an instrument of torture! Utilizing her special
-            abilities, Fear fights alongside Haruaki to defeat other cursed
-            instruments and their owners.
-          </p>
+          <p>{name}</p>
+          <img src={image} alt={name} />
+
+          <div dangerouslySetInnerHTML={{ __html: summary }} />
+
+          <div className="ShowPage_cast">
+            {cast.map(elem => (
+              <div className="t-person">
+                <p>{elem.person.name}</p>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="ShowPage_cast" />
-      </div>
+      )
     );
   }
 }

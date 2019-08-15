@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Switch, Link, Route } from 'react-router-dom';
 import './index.css';
 import AppRouter from 'components/AppRouter';
 import getStore from './store';
@@ -9,8 +8,6 @@ import { BrowserRouter } from 'react-router-dom';
 import './reducers';
 
 let store = getStore();
-
-// store.subscribe(() => console.log(store.getState()));
 
 ReactDOM.render(
   <BrowserRouter>

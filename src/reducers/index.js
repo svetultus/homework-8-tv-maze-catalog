@@ -6,6 +6,6 @@ import shows from './shows';
 // Создайте соответствующие файлы.
 
 export default combineReducers({
-  search
-  //shows
+  search,
+  shows
 });

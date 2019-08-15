@@ -7,18 +7,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { changeSearchString } from '../../actions';
-import { getSearchString, getShows } from '../../selectors';
+import {
+  getSearchString,
+  getShows,
+  getIsLoading,
+  getSearchError
+} from '../../selectors';
+import ShowPreview from '../ShowPreview';
 
 const mapStateToProps = state => ({
   searchString: getSearchString(state),
-  shows: getShows(state)
+  shows: getShows(state),
+  isLoading: getIsLoading(state),
+  error: getSearchError(state)
 });
 
 const mapDispatchToProps = { changeSearchString };
 
 class Search extends React.Component {
   render() {
-    const { searchString, shows, changeSearchString } = this.props;
+    const { shows, changeSearchString, isLoading, error } = this.props;
+
+    if (error) return <p>Произошла сетевая ошибка</p>;
+    if (isLoading) return <div>Выполняется поиск</div>;
+    if (!this.props.shows) return null;
 
     // const onChangeInput = e => {
     //   changeSearchString(e.target.value);
@@ -29,7 +41,6 @@ class Search extends React.Component {
       changeSearchString(e.target['Search_input'].value);
     };
 
-    console.log(shows);
     return (
       <div className="Search_previewList">
         <form onSubmit={onSubmit}>
@@ -52,22 +63,6 @@ class Search extends React.Component {
       </div>
     );
   }
-}
-
-function ShowPreview(props) {
-  const { id, name, image, summary } = props;
-
-  return (
-    <div className="t-preview ShowPreview_container">
-      <div>
-        <a className="t-link" href={`/shows/${id}`}>
-          {name}
-        </a>
-        <img src={image} alt={name} />
-      </div>
-      <div dangerouslySetInnerHTML={{ __html: summary }} />
-    </div>
-  );
 }
 
 export default connect(

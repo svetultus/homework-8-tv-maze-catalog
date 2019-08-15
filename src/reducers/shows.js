@@ -11,9 +11,15 @@ const showId = handleActions(
 const showInfo = handleActions(
   {
     [showRequestSuccess]: (state, action) => {
-      const show = action.payload;
-      console.log('show', show);
-      return show;
+      const {
+        id,
+        name,
+        image: { medium },
+        summary,
+        _embedded: { cast }
+      } = action.payload;
+
+      return { id, name, image: medium, summary, cast };
     }
   },
   null
@@ -26,8 +32,18 @@ const error = handleActions(
   null
 );
 
+const isLoading = handleActions(
+  {
+    [showRequest]: (state, action) => true,
+    [showRequestError]: (state, action) => false,
+    [showRequestSuccess]: (state, action) => false
+  },
+  true
+);
+
 export default combineReducers({
   showId,
   showInfo,
-  error
+  error,
+  isLoading
 });
