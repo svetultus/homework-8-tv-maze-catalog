@@ -1,2 +1,2 @@
-function shows() {}
+function shows(id) {}
 export default shows;

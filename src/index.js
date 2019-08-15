@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import './reducers';
 
-const store = getStore();
+let store = getStore();
 
 // store.subscribe(() => console.log(store.getState()));
 
