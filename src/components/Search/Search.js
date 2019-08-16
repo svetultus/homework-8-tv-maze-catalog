@@ -14,6 +14,7 @@ import {
   getSearchError
 } from '../../selectors';
 import ShowPreview from '../ShowPreview';
+import styles from './Search.module.css';
 
 const mapStateToProps = state => ({
   searchString: getSearchString(state),
@@ -32,35 +33,34 @@ class Search extends React.Component {
     if (isLoading) return <div>Выполняется поиск</div>;
     if (!this.props.shows) return null;
 
-    // const onChangeInput = e => {
-    //   changeSearchString(e.target.value);
-    // };
-
     const onSubmit = e => {
       e.preventDefault();
       changeSearchString(e.target['Search_input'].value);
     };
 
     return (
-      <div className="Search_previewList">
-        <form onSubmit={onSubmit}>
+      <React.Fragment>
+        <form className={styles.previewList} onSubmit={onSubmit}>
           <input
-            className="Search_input t-input"
+            className={styles.input + ' t-input'}
             placeholder="Название сериала"
             name="Search_input"
           />
-          <div className="Search_buttonWrapper">
-            <button className="Search_button t-search-button" type="submit">
+          <div className={styles.buttonWrapper}>
+            <button
+              className={styles.button + ' t-search-button'}
+              type="submit"
+            >
               Найти
             </button>
           </div>
         </form>
-        <div className="t-search-result Search_searchPanel">
+        <div className={styles.searchPanel + ' t-search-result'}>
           {shows.map(show => (
             <ShowPreview key={show.id} {...show} />
           ))}
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

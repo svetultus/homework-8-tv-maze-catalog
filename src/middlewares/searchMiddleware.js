@@ -9,7 +9,7 @@
 import { changeSearchString, searchSuccess, searchError } from '../actions';
 import { search } from '../api.js';
 
-export const searchMiddleware = store => next => action => {
+const searchMiddleware = store => next => action => {
   if (action.type === changeSearchString.toString()) {
     search(action.payload)
       .then(result => {
@@ -19,3 +19,5 @@ export const searchMiddleware = store => next => action => {
   }
   return next(action);
 };
+
+export { searchMiddleware };

@@ -8,7 +8,7 @@
 import { showRequest, showRequestSuccess, showRequestError } from '../actions';
 import { show } from '../api.js';
 
-export const showMiddleware = store => next => action => {
+const showMiddleware = store => next => action => {
   if (action.type === showRequest.toString()) {
     show(action.payload)
       .then(result => {
@@ -18,3 +18,4 @@ export const showMiddleware = store => next => action => {
   }
   return next(action);
 };
+export { showMiddleware };

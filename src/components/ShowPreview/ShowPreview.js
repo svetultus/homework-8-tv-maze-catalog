@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './ShowPreview.module.css';
 
 // Реализуйте компонент превью шоу.
 // Он должен показывать название, описание и картинку шоу.
@@ -7,7 +8,7 @@ export default props => {
   const { id, name, image, summary } = props;
 
   return (
-    <div className="t-preview ShowPreview_container">
+    <div className={styles.container + ' t-preview'}>
       <div>
         <a className="t-link" href={`/shows/${id}`}>
           {name}

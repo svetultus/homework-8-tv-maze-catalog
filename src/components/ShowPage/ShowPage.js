@@ -11,6 +11,8 @@ import {
   getShowError,
   getIsLoading
 } from '../../selectors';
+import styles from './ShowPage.module.css';
+
 // Реализуйте страницу шоу.
 
 // Используйте метод connect и mapStateToProps, mapDispatchToProps,
@@ -54,7 +56,7 @@ class ShowPage extends React.Component {
 
           <div dangerouslySetInnerHTML={{ __html: summary }} />
 
-          <div className="ShowPage_cast">
+          <div className={styles.cast}>
             {cast.map(elem => (
               <div className="t-person">
                 <p>{elem.person.name}</p>
