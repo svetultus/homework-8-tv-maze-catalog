@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { changeSearchString } from '../../actions';
+import { searchRequest } from '../../actions';
 import {
   getSearchString,
   getShows,
@@ -23,11 +23,11 @@ const mapStateToProps = state => ({
   error: getSearchError(state)
 });
 
-const mapDispatchToProps = { changeSearchString };
+const mapDispatchToProps = { searchRequest };
 
 class Search extends React.Component {
   render() {
-    const { shows, changeSearchString, isLoading, error } = this.props;
+    const { shows, searchRequest, isLoading, error } = this.props;
 
     if (error) return <p>Произошла сетевая ошибка</p>;
     if (isLoading) return <div>Выполняется поиск</div>;
@@ -35,7 +35,7 @@ class Search extends React.Component {
 
     const onSubmit = e => {
       e.preventDefault();
-      changeSearchString(e.target['Search_input'].value);
+      searchRequest(e.target['Search_input'].value);
     };
 
     return (

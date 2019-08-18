@@ -1,10 +1,10 @@
 import { handleActions } from 'redux-actions';
 import { combineReducers } from 'redux';
-import { changeSearchString, searchSuccess, searchError } from '../actions';
+import { searchRequest, searchSuccess, searchError } from '../actions';
 
 const searchString = handleActions(
   {
-    [changeSearchString]: (state, action) => action.payload,
+    [searchRequest]: (state, action) => action.payload,
     [searchSuccess]: (state, action) => '',
     [searchError]: (state, action) => ''
   },
@@ -12,7 +12,7 @@ const searchString = handleActions(
 );
 const shows = handleActions(
   {
-    [changeSearchString]: (state, action) => [],
+    [searchRequest]: (state, action) => [],
     [searchSuccess]: (state, action) => action.payload
   },
   []
@@ -20,7 +20,7 @@ const shows = handleActions(
 
 const error = handleActions(
   {
-    [changeSearchString]: (state, action) => null,
+    [searchRequest]: (state, action) => null,
     [searchSuccess]: (state, action) => null,
     [searchError]: (state, action) => action.payload
   },
@@ -29,7 +29,7 @@ const error = handleActions(
 
 const isLoading = handleActions(
   {
-    [changeSearchString]: (state, action) => true,
+    [searchRequest]: (state, action) => true,
     [searchSuccess]: (state, action) => false,
     [searchError]: (state, action) => false
   },

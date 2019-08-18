@@ -10,7 +10,6 @@ const getSearchString = createSelector(
 const getShows = createSelector(
   state => state.search.shows,
   shows => {
-    console.log(shows);
     return shows.map(({ id, name, image, summary }) => ({
       id,
       name,
