@@ -32,6 +32,17 @@ const mapDispatchToProps = {
   showRequestSuccess,
   showRequestError
 };
+function Person(props) {
+  const data = props.personInfo;
+  const { name, image } = data;
+
+  return (
+    <div className="t-person">
+      <p>{name}</p>
+      {image && <img src={image.medium} alt={name} />}
+    </div>
+  );
+}
 
 class ShowPage extends React.Component {
   componentDidMount() {
@@ -57,10 +68,11 @@ class ShowPage extends React.Component {
           <div dangerouslySetInnerHTML={{ __html: summary }} />
 
           <div className={styles.cast}>
-            {cast.map(elem => (
-              <div className="t-person">
-                <p>{elem.person.name}</p>
-              </div>
+            {cast.map((elem, index) => (
+              <Person
+                key={`${elem.person.id}_${index}`}
+                personInfo={elem.person}
+              />
             ))}
           </div>
         </div>
