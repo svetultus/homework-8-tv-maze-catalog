@@ -6,3 +6,18 @@
 // В случае ошибки searchFailure
 
 // На забудьте вызвать метод next.
+import { searchRequest, searchSuccess, searchError } from '../actions';
+import { search } from '../api.js';
+
+const searchMiddleware = store => next => action => {
+  if (action.type === searchRequest.toString()) {
+    search(action.payload)
+      .then(result => {
+        store.dispatch(searchSuccess(result));
+      })
+      .catch(e => store.dispatch(searchError(e)));
+  }
+  return next(action);
+};
+
+export { searchMiddleware };

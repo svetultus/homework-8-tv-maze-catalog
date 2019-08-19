@@ -5,8 +5,9 @@ import AppRouter from 'components/AppRouter';
 import getStore from './store';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import './reducers';
 
-const store = getStore();
+let store = getStore();
 
 ReactDOM.render(
   <BrowserRouter>
